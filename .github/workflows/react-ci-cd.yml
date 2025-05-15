@@ -12,7 +12,7 @@ env:
 jobs:
   pre-requisites:
     name: Pre-requisites Stage
-    runs-on: [self-hosted, demo]
+    runs-on: [self-hosted]
 
     steps:
       - name: Setup SSH Agent
