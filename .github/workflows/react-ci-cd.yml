@@ -1,30 +1,48 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: React-CI-CD.yaml
 
 on:
   push:
     branches: [ "main" ]
 
-jobs:
-  build:
+env:
+  DEMO_SERVER: 172.31.30.63 #change it to have your private IP
 
-    runs-on: self-hosted
+jobs:
+  pre-requisites:
+    name: Pre-requisites Stage
+    runs-on: [self-hosted, demo]
 
     steps:
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.REACT_DEMO }}
 
-      # Make sure the @v0.9.0 matches the current version of the action
-    - uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - run: npm run build --if-present
-    
+      - name: Pull latest code and set script permissions
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} << 'EOF'
+            cd /home/ubuntu/Udemy-section4-code
+            git pull
+            chmod 744 build.sh
+            chmod 744 deploy.sh
+          EOF
+
+  build:
+    name: Build Stage
+    needs: pre-requisites
+    runs-on: [self-hosted, demo]
+
+    steps:
+      - name: Run build.sh
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section4-code/build.sh"
+
+  deploy:
+    name: Deploy Stage
+    needs: build
+    runs-on: [self-hosted, demo]
+
+    steps:
+      - name: Run deploy.sh
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section4-code/deploy.sh"
