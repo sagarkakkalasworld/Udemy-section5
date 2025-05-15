@@ -26,6 +26,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} << 'EOF'
             rm -rf /home/ubuntu/Udemy-section5
             git clone https://github.com/sagarkakkalasworld/Udemy-section5.git
+            cd Udemy-section5
             chmod 744 build.sh
             chmod 744 deploy.sh
           EOF
