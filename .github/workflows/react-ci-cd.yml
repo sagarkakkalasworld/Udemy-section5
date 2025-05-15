@@ -3,6 +3,8 @@ name: React-CI-CD.yaml
 on:
   push:
     branches: [ "main" ]
+  
+  workflow_dispatch:
 
 env:
   DEMO_SERVER: 172.31.30.63 #change it to have your private IP
