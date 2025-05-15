@@ -32,7 +32,7 @@ jobs:
   build:
     name: Build Stage
     needs: pre-requisites
-    runs-on: [self-hosted, demo]
+    runs-on: [self-hosted, cicd]
 
     steps:
       - name: Run build.sh
@@ -42,7 +42,7 @@ jobs:
   deploy:
     name: Deploy Stage
     needs: build
-    runs-on: [self-hosted, demo]
+    runs-on: [self-hosted, cicd]
 
     steps:
       - name: Run deploy.sh
