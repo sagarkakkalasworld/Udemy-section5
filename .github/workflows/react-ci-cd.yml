@@ -2,9 +2,9 @@ name: React-CI-CD.yaml
 
 on:
   push:
-    branches: [ "main" ]
-  tags:
-      - 'v1*'
+  #  branches: [ "main" ]
+    tags:
+      - "v1*"
   workflow_dispatch:
 
 env:
