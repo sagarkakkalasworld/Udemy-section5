@@ -23,7 +23,7 @@ jobs:
       - name: Pull latest code and set script permissions
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} << 'EOF'
-            cd /home/ubuntu/Udemy-section4-code
+            cd /home/ubuntu/Udemy-section5
             git pull
             chmod 744 build.sh
             chmod 744 deploy.sh
@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: Run build.sh
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section4-code/build.sh"
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section5/build.sh"
 
   deploy:
     name: Deploy Stage
@@ -47,4 +47,4 @@ jobs:
     steps:
       - name: Run deploy.sh
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section4-code/deploy.sh"
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section5/deploy.sh"
