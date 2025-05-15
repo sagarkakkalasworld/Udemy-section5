@@ -23,8 +23,8 @@ jobs:
       - name: Pull latest code and set script permissions
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} << 'EOF'
-            cd /home/ubuntu/Udemy-section5
-            git pull
+            rm -rf /home/ubuntu/Udemy-section5
+            git clone https://github.com/sagarkakkalasworld/Udemy-section5.git
             chmod 744 build.sh
             chmod 744 deploy.sh
           EOF
