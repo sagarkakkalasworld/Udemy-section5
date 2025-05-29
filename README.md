@@ -158,13 +158,6 @@ I share content on DevOps, travel, vlogs, and more.
 📌 Check all links here:
 [🔗 Sagar Kakkala One Stop](https://linktr.ee/sagar_kakkalas_world)
 
----
-
-## 📣 Feedback & Suggestions
-
-Feel free to raise issues or drop your thoughts in the comments section!
-
-```
 
 ---
 
