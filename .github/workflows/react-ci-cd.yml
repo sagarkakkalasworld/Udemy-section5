@@ -8,12 +8,12 @@ on:
   workflow_dispatch:
 
 env:
-  DEMO_SERVER: 172.31.30.63 #change it to have your private IP
+  AWS_PRIVATE_IP: 172.31.30.63 #change it to have your private IP
 
 jobs:
   pre-requisites:
     name: Pre-requisites Stage
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, cicd]
 
     steps:
       - name: Setup SSH Agent
@@ -23,8 +23,8 @@ jobs:
 
       - name: Pull latest code and set script permissions
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} << 'EOF'
-            rm -rf /home/ubuntu/Udemy-section5
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.AWS_PRIVATE_IP }} << 'EOF'
+            rm -rf /home/ubuntu/Udemy-section*
             git clone https://github.com/sagarkakkalasworld/Udemy-section5.git
             cd Udemy-section5
             chmod 744 build.sh
@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Run build.sh
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section5/build.sh"
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.AWS_PRIVATE_IP }} "bash /home/ubuntu/Udemy-section5/build.sh"
 
   deploy:
     name: Deploy Stage
@@ -49,4 +49,4 @@ jobs:
     steps:
       - name: Run deploy.sh
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.DEMO_SERVER }} "bash /home/ubuntu/Udemy-section5/deploy.sh"
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ env.AWS_PRIVATE_IP }} "bash /home/ubuntu/Udemy-section5/deploy.sh"
