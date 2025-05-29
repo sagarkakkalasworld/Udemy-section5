@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
             <StatusCard 
               title="Deployment Status"
               status="success"
-              message="Congratulations Manual Build and Deployment of React Application is Successfull using Github Actions"
+              message="Congratulations Build and Deployment of React Application is Successfull using Github Actions"
               timestamp={new Date().toLocaleString()}
             />
           </FadeIn>
