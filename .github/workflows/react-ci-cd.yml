@@ -44,6 +44,8 @@ jobs:
   deploy:
     name: Deploy Stage
     needs: build
+    enviroment:
+       name: demo
     runs-on: [self-hosted, cicd]
 
     steps:
